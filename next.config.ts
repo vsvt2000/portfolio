@@ -5,4 +5,17 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 };
 
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'miro.medium.com/**',
+        port: '',
+        search: '',
+      },
+    ],
+  },
+}
+
 export default nextConfig;
