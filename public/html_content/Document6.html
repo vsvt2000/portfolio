@@ -69,15 +69,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="customer-review-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="customer-review-analysis">Customer Review Analysis</h2>
-</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
 <p>Customer reviews are an important source of information for business decision making. Using text mining, we can analyse the reviews and create opinion association, heat maps and word cloud to understand the content of the reviews.</p>
 </section>
 <section id="data-pre-processing" class="level2">
 <h2 class="anchored" data-anchor-id="data-pre-processing">2. Data Pre-processing</h2>
+<p>We load the dataset and the column “Reviews”, which comprises of customer reviews, are the only ones taken into account.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Love the food...Do not have any complaints!!! Favorite item to order stuffed mushrooms"                                                                                                                                                                      
@@ -184,6 +182,7 @@ Docs alfredo best chicken deep dish food good great pizza sauce
 </section>
 <section id="converting-to-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="converting-to-matrix">2.6 Converting to Matrix</h3>
+<p>The following is the output for cosine matrix:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>             Terms
@@ -4115,6 +4114,10 @@ Terms         wasnt watering way white wine worth yummy
   yummy        1.00     1.00   1  1.00 1.00  1.00  0.00</code></pre>
 </div>
 </div>
+</section>
+<section id="visualizing-the-distance-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-distance-matrix">2.7 Visualizing the Distance matrix</h3>
+<p>The heatmap for this cosine matrix is then printed and shown. This heatmap is used to visualize the distance matrix.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -4124,6 +4127,9 @@ Terms         wasnt watering way white wine worth yummy
 </div>
 </div>
 </div>
+</section>
+<section id="clustering-the-documents" class="level3">
+<h3 class="anchored" data-anchor-id="clustering-the-documents">2.8 Clustering the documents</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -4133,6 +4139,15 @@ Terms         wasnt watering way white wine worth yummy
 </div>
 </div>
 </div>
+</section>
+<section id="generating-word-cloud" class="level3">
+<h3 class="anchored" data-anchor-id="generating-word-cloud">2.9 Generating Word Cloud</h3>
+<p>Word cloud is a visual representation of how each token is frequent in the reviews. From the below cloud, we can conclude that :</p>
+<ul>
+<li><p>Pizza is the most repeated word, and words like good,food are also used. This means that the overall reviews are positive about the food</p></li>
+<li><p>Although there are occurences where words like lousy, fighting have popped up, the overall positives outweigh the negatives in this case.</p></li>
+<li><p>The dishes like sauce, chicken also gain some praise here.</p></li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>

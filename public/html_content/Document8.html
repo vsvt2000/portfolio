@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -103,20 +69,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="predictive-analytics-using-regression-model" class="level1">
-<h1>Predictive Analytics using Regression Model</h1>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_excel</span>(<span class="st">"../ButlerHighway.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>The dataset is loaded and the following attributes are taken:</p>
+<ul>
+<li><p>Assignment</p></li>
+<li><p>Miles</p></li>
+<li><p>Deliveries</p></li>
+<li><p>Highway</p></li>
+<li><p>Time</p></li>
+</ul>
 </section>
 <section id="data-exploration" class="level2">
 <h2 class="anchored" data-anchor-id="data-exploration">2. Data Exploration</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#understanding the data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [300 × 5] (S3: tbl_df/tbl/data.frame)
  $ Assignment: num [1:300] 1 2 3 4 5 6 7 8 9 10 ...
@@ -125,7 +91,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  $ Highway   : num [1:300] 0 0 0 0 0 0 1 0 0 0 ...
  $ Time      : num [1:300] 9.3 4.8 8.9 6.5 4.2 6.2 7.4 6 7.6 6.1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Assignment         Miles          Deliveries       Highway      
  Min.   :  1.00   Min.   : 40.00   Min.   :1.000   Min.   :0.0000  
@@ -148,9 +113,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="fitting-into-linear-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="fitting-into-linear-regression-model">3. Fitting into Linear regression model</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression Model</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>result<span class="ot">&lt;-</span><span class="fu">lm</span>(Time<span class="sc">~</span>Miles,<span class="at">data=</span>data) <span class="co">#fitting the regression model</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(result) <span class="co">#resultant model summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -177,8 +139,6 @@ F-statistic: 276.6 on 1 and 298 DF,  p-value: &lt; 2.2e-16</code></pre>
 <section id="multiple-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="multiple-regression-model">4. Multiple Regression Model</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>result2<span class="ot">&lt;-</span><span class="fu">lm</span>(Time<span class="sc">~</span>Miles<span class="sc">+</span>Deliveries<span class="sc">+</span>Highway,<span class="at">data=</span>data)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(result2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -203,7 +163,6 @@ F-statistic: 750.5 on 3 and 296 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>F value in comparison to linear, is substantially higher - a value of 750.5. The null hypothesis is rejected here in the case. and alternate hypothesis is taken into account. The estimate for miles :Suppose one extra mile has to be traveled, then the corresponding time taken is 0.07 hours , which is approximately 4 minutes according to this data. It takes 42 minutes to complete an extra delivery.</p>
-</section>
 </section>
 
 </main>

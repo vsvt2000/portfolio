@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -69,16 +103,48 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
 <p><strong>Market segmentation</strong>—the process of dividing a broad consumer or business market into sub-groups based on shared characteristics—enables organizations to tailor their offerings to meet specific customer needs, improve customer satisfaction, and optimize resource allocation. We are able to understand how R can be used to make strategic decisions for a particular data set.</p>
 </section>
 <section id="implementation" class="level2">
 <h2 class="anchored" data-anchor-id="implementation">2. Implementation</h2>
-<section id="opening-rattle" class="level3">
-<h3 class="anchored" data-anchor-id="opening-rattle">2.1 Opening Rattle</h3>
-</section>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We begin most scripts by loading the required packages.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are some initial packages to load and others will be</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># identified as we proceed through the script. When writing</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># our own scripts we often collect together the library</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># commands at the beginning of the script here.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rattle)   <span class="co"># Access the weather dataset and utilities.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: tibble</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: bitops</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rattle: A free graphical interface for data science with R.
+Version 5.5.1 Copyright (c) 2006-2021 Togaware Pty Ltd.
+Type 'rattle()' to shake, rattle, and roll your data.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr) <span class="co"># Utilise %&gt;% and %&lt;&gt;% pipeline operators.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This log generally records the process of building a model. </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># However, with very little effort the log can also be used </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># to score a new dataset. The logical variable 'building' </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># is used to toggle between generating transformations, </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># when building a model and using the transformations, </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># when scoring a dataset.</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>building <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>scoring  <span class="ot">&lt;-</span> <span class="sc">!</span> building</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># A pre-defined value is used to reset the random seed </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># so that results are repeatable.</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>crv<span class="sc">$</span>seed <span class="ot">&lt;-</span> <span class="dv">42</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="importing-data-set" class="level3">
 <h3 class="anchored" data-anchor-id="importing-data-set">2.2 Importing Data Set</h3>
 <p>We are using the data from DemoKTC.xlsx . This has 30 records and has the following properties :</p>
@@ -112,6 +178,12 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="data-exploration" class="level3">
 <h3 class="anchored" data-anchor-id="data-exploration">2.3 Data Exploration</h3>
+<p>We perform data exploration by exploring each attribute in detail, understanding all aspects of the data before performing segmentation analysis. The following steps are ensured</p>
+<ul>
+<li><p>Summary of data is taken for each attribute.</p></li>
+<li><p>Inferences are stated in brief.</p></li>
+<li><p>Graphical representation of the data is provided.</p></li>
+</ul>
 <section id="age" class="level4">
 <h4 class="anchored" data-anchor-id="age">2.3.1 Age</h4>
 <p>The tabulation and graphical exploration are as follows</p>
@@ -138,6 +210,15 @@ Kurtosis      -1.027527</code></pre>
 </div>
 </div>
 <p>The mean age of customers is 56 , and 75% of customers are below 57 years of age.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Document3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="income" class="level4">
 <h4 class="anchored" data-anchor-id="income">2.3.2 Income</h4>
@@ -163,7 +244,16 @@ Skewness     9.684990e-01
 Kurtosis    -1.501710e-01</code></pre>
 </div>
 </div>
-<p>The average income of customers is 28,011. 75% of people have income below 35,923.</p>
+<p>The average income of customers is 28,011. 75% of people have income below 35,923. However, the right skewness in the distribution indicates some of the customers having very&nbsp;large&nbsp;income.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Document3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="marital-status" class="level4">
 <h4 class="anchored" data-anchor-id="marital-status">2.3.3 Marital Status</h4>
@@ -185,7 +275,7 @@ Married
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Document3_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -211,7 +301,7 @@ Female
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Document3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -242,7 +332,7 @@ For the frequency table, variable is rounded to the nearest 0
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Document3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -268,7 +358,7 @@ Loan
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Document3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -294,7 +384,7 @@ Mortgage
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Document3_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -337,8 +427,14 @@ Mortgage  double</code></pre>
 </section>
 <section id="segmentation-using-clustering" class="level3">
 <h3 class="anchored" data-anchor-id="segmentation-using-clustering">2.4 Segmentation using Clustering</h3>
+<p>The following two methods are used in order to perform clustering:</p>
+<ul>
+<li><p>k-means clustering</p></li>
+<li><p>Hierarchial clustering</p></li>
+</ul>
 <section id="k-means-clustering" class="level4">
 <h4 class="anchored" data-anchor-id="k-means-clustering">2.4.1 k-means clustering</h4>
+<p><strong>K-means clustering</strong> is an <strong>unsupervised machine learning algorithm</strong> that partitions a dataset into <em>K distinct, non-overlapping clusters</em> based on similarity. Points in a given cluster are usually close to each other, and each cluster is placed far from each other, thus making a distinct appearance.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "14 8 8"</code></pre>
@@ -357,18 +453,17 @@ Mortgage  double</code></pre>
 <pre><code>[1] 11.113783  5.903862  5.749708</code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="hierarchial-clustering" class="level4">
-<h4 class="anchored" data-anchor-id="hierarchial-clustering">2.5.2 Hierarchial Clustering</h4>
+<p>Here we perform the following steps:</p>
+<ul>
+<li><p>Generate a kmeans cluster of size 3.</p></li>
+<li><p>Print the output for the following characteristics</p>
+<ul>
+<li><p>Cluster sizes (14,8,8)</p></li>
+<li><p>Data means (It MAY be synonymous to the data exploration results for binary variables)</p></li>
+<li><p>Cluster centers</p></li>
+<li><p>Within cluster sum of squares</p></li>
+</ul></li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -379,22 +474,62 @@ Mortgage  double</code></pre>
 </div>
 </div>
 </section>
-<section id="identifying-clusters-using-readxl" class="level4">
-<h4 class="anchored" data-anchor-id="identifying-clusters-using-readxl">2.5.3 Identifying clusters using readxl</h4>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
+<section id="hierarchial-clustering" class="level4">
+<h4 class="anchored" data-anchor-id="hierarchial-clustering">2.5.2 Hierarchial Clustering</h4>
+<p><strong>Hierarchical clustering</strong> is a method of grouping data that builds a hierarchy (a tree of clusters) instead of fixing the number of clusters at the start.</p>
+<p>It works in two main ways:</p>
+<ol type="1">
+<li><p><strong>Agglomerative (bottom-up):</strong></p>
+<ul>
+<li><p>Start with each data point as its own cluster.</p></li>
+<li><p>Then keep merging the two most similar clusters step by step… until everything is in one big cluster.</p></li>
+</ul></li>
+<li><p><strong>Divisive (top-down):</strong></p>
+<ul>
+<li><p>Start with all data in one cluster.</p></li>
+<li><p>Then keep splitting clusters into smaller ones… until each point is on its own.</p></li>
+</ul></li>
+</ol>
+<p>The result is shown as a <strong>dendrogram</strong> (a tree diagram), where you can “cut” at any level to decide how many clusters you want.</p>
+<p>We initially start by creating a hierarchical cluster from the numeric data. The results are shown through the dendrogram plot.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="Document3_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="identifying-clusters-using-readxl" class="level4">
+<h4 class="anchored" data-anchor-id="identifying-clusters-using-readxl">2.5.3 Identifying clusters using readxl</h4>
+<p>The following steps are performed to identify clusters:</p>
+<ul>
+<li><p>Dataset is loaded</p></li>
+<li><p>data is standardized, such that mean=0 and s.d=1 for each variable</p></li>
+<li><p>distance matrix is computed for the dataset.</p></li>
+<li><p>Based on the matrix , hierarchical clustering is performed, and ward’s method is chosen.</p></li>
+<li><p>the dendrogram is plotted. In this</p>
+<ul>
+<li>we are displaying the 3 main clusters through the red rectangular boxes.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Document3_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>How did we land at 3? the optimal number of clusters? Here, the optimal number of clusters are found. The point with the maximum slope is chosen as the point, as it tends to give distinct clusters.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Document3_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -406,7 +541,7 @@ Mortgage  double</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Document3_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Document3_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -414,7 +549,6 @@ Mortgage  double</code></pre>
 </section>
 </section>
 </section>
-
 
 </main>
 <!-- /main column -->
