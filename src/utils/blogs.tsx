@@ -60,6 +60,11 @@ export const blogInfo = {
       link: "/blog/predictive_analytics",
       tag: "IBA",
       imageUrl: "Rlogo.svg",
+    },{
+      title: "Regression analysis of ten companies using R",
+      link: "/blog/regression_project",
+      tag: "IBA",
+      imageUrl: "Rlogo.svg",
     },
   ],
 };
@@ -70,5 +75,6 @@ export const htmlBlogInfo: {
   market_segmentation: "Document3",
   market_basket_analysis:"Document5",
   customer_review_analysis:"Document6",
-  predictive_analytics:"Document8"
+  predictive_analytics:"Document8",
+  regression_project:"Document9"
 };
