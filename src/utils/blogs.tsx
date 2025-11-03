@@ -50,19 +50,28 @@ export const blogInfo = {
       link: "/blog/market_basket_analysis",
       tag: "IBA",
       imageUrl: "Rlogo.svg",
-    },{
+    },
+    {
       title: "Customer Review analyis using R",
       link: "/blog/customer_review_analysis",
       tag: "IBA",
       imageUrl: "Rlogo.svg",
-    },{
+    },
+    {
       title: "Predictive analytics using R",
       link: "/blog/predictive_analytics",
       tag: "IBA",
       imageUrl: "Rlogo.svg",
-    },{
+    },
+    {
       title: "Regression analysis of ten companies using R",
       link: "/blog/regression_project",
+      tag: "IBA",
+      imageUrl: "Rlogo.svg",
+    },
+    {
+      title: "Management Information Systems",
+      link: "/reports/r1",
       tag: "IBA",
       imageUrl: "Rlogo.svg",
     },
@@ -73,8 +82,8 @@ export const htmlBlogInfo: {
   [x: string]: string;
 } = {
   market_segmentation: "Document3",
-  market_basket_analysis:"Document5",
-  customer_review_analysis:"Document6",
-  predictive_analytics:"Document8",
-  regression_project:"Document9"
+  market_basket_analysis: "Document5",
+  customer_review_analysis: "Document6",
+  predictive_analytics: "Document8",
+  regression_project: "Document9",
 };
