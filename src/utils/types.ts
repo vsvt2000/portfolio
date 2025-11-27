@@ -4,8 +4,14 @@ export interface CardProps {
   link?: string;
   tag?: string;
   imageUrl?: string ;
+  size?:number;
 }
 
 export interface CardGridProps {
   cards: CardProps[];
+}
+
+export interface BlogItemType{
+  title:string,
+  items:CardProps[]
 }

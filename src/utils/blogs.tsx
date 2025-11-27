@@ -1,4 +1,6 @@
-export const blogInfo = {
+import { BlogItemType } from "./types";
+
+export const blogInfo:BlogItemType = {
   title: "Blog world",
   items: [
     {
@@ -72,8 +74,23 @@ export const blogInfo = {
     {
       title: "Management Information Systems",
       link: "/reports/r1",
-      tag: "IBA",
-      imageUrl: "Rlogo.svg",
+      tag: "MIS",
+      imageUrl: "/mis-icon.png",
+      size:125
+    },
+    {
+      title: "Foundations of business intelligence: Database and Information Management",
+      link: "/reports/r2",
+      tag: "MIS",
+      imageUrl: "/mis-icon.png",
+      size:125
+    },
+    {
+      title: "Creating a simple blockchain application using Python",
+      link: "/blog/Block_Chain",
+      tag: "MIS",
+      imageUrl: "/python-logo.png",
+      size:150
     },
   ],
 };
@@ -86,4 +103,5 @@ export const htmlBlogInfo: {
   customer_review_analysis: "Document6",
   predictive_analytics: "Document8",
   regression_project: "Document9",
+  Block_Chain:"Block_Chain"
 };

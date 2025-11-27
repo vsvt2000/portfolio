@@ -14,6 +14,7 @@ function CardGridView(cardProps: CardGridProps) {
           link={card?.link}
           tag={card?.tag}
           imageUrl={card.imageUrl}
+          size={card?.size}
         />
       ))}
     </div>

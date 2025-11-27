@@ -8,7 +8,7 @@ function BlogsComponent(props: any) {
   return (
     <>
     <div className="text-2xl font-semibold text-center">{blogInfo?.title}</div>
-      <CardGridView cards={blogInfo?.items} />
+      <CardGridView cards={blogInfo?.items.reverse()} />
     </>
   );
 }
