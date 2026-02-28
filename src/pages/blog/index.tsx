@@ -4,6 +4,7 @@ import { geistMono, geistSans } from "@/utils/fonts";
 import React from "react";
 
 function BlogsPage() {
+  
   return (
     <div className={`${geistSans.className} ${geistMono.className} space-y-8`}>
       <Header />

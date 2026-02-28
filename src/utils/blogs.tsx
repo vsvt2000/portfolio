@@ -92,6 +92,13 @@ export const blogInfo:BlogItemType = {
       imageUrl: "/python-logo.png",
       size:150
     },
+    {
+      title:"Watch ! I represented Amrita University at the Times India Economic Conclave",
+      link:"https://www.facebook.com/Timesnow/videos/vishnusai-viswajith-tharoor-mba-amrita-school-of-business-coimbatore-says-two-ma/1905995493287314/",
+      tag:"musings",
+      imageUrl:"/tn_logo.svg",
+      size:250
+    }
   ],
 };
 

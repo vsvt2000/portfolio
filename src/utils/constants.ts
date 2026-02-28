@@ -62,6 +62,8 @@ export const caseStudies = [
 ];
 
 export const projects = [
-  { title: "Elective Management System" },
-  { title: "Hospital Management System" },
+  {title:"Sentiment Analysis for Reviews",link:"https://github.com/vsvt2000/ai_mr_dashboard",imageUrl:"github-logo.svg"},
+  {title:"OBE Management System",link:"https://github.com/sanjna10/Ed-Eu-Helper",imageUrl:"github-logo.svg"},
+  { title: "Elective Management System",link:"https://github.com/SowmiSelvam/Elective-Management",imageUrl:"github-logo.svg"},
+  {title:"Leave Management System",link:"https://github.com/vsvt2000/leave_management_system",imageUrl:"github-logo.svg"},
 ];
