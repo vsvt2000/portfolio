@@ -71,6 +71,20 @@ export const milestones = [
       { label: "Features Delivered", value: "3" },
     ],
   },
+  {
+    id: 4,
+    title: "Internship",
+    company: "HARTS",
+    period: "2026",
+    location: "India",
+    description: "Designed and implemented a prototype for an AI-driven problem solving toolkit, demonstrating effective use of emerging technologies to address complex challenges.",
+    impact: "Strategic Innovation",
+    score: 9.0,
+    tags: ["Strategy", "Consulting", "Product Development"],
+    metrics: [
+      { label: "Architecture Score", value: "9.0/10" },
+    ],
+  },
 ];
 
 // Academic Excellence — Certifications, Competitions, Research
