@@ -108,7 +108,7 @@ export function About() {
                 82%
               </div>
               <div className="mt-1 text-xs text-slate-400 sm:text-sm">
-                Org Growth
+                Organization Growth
               </div>
             </Card>
             <Card className="p-3 text-center sm:p-4">
