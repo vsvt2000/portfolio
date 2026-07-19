@@ -63,7 +63,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const metadata = await getMetadata();
 
   return (
     <html lang="en" className={dmSans.variable}>

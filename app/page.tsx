@@ -9,6 +9,7 @@ import { Projects } from "@/components/Projects";
 import { Leadership } from "@/components/Leadership";
 import { Blog } from "@/components/Blog";
 import { Contact } from "@/components/Contact";
+import Portfolio from "@/components/v2/portfolio";
 
 // Component registry - maps section types to components
 // To add a new section: create component, add to registry, add to portfolioData.json
@@ -26,17 +27,7 @@ const componentRegistry: Record<string, React.ComponentType> = {
 export default function Home() {
   return (
     <div>
-      <Navbar />
-      <div>
-        <Hero />
-        <About />
-        <Milestones />
-        <Academic />
-        <Projects />
-        <Leadership />
-        <Blog />
-        <Contact />
-      </div>
+      <Portfolio/>
     </div>
   );
 }
